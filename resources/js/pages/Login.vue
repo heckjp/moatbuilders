@@ -1,14 +1,50 @@
 <template>
   <b-container>
-      <b-row>
-          <b-col>Aqui</b-col>
+      <b-row class="d-flex justify-content-center">
+          <b-col sm="12" md="6">
+              <h1 class="text-center">Music App</h1>
+              <b-card class="shadow mt-4">
+                  <b-form>
+                      <b-form-group description="Enter your username"
+                      label="Username"
+                      label-for="login">
+                          <b-form-input id="login" v-model="form.login"></b-form-input>
+                      </b-form-group>
+                      <b-form-group description="Enter your password"
+                      label="Password"
+                      label-for="password">
+                          <b-form-input id="password" v-model="form.password"></b-form-input>
+                      </b-form-group>
+                      <div class="mt-2 d-flex justify-content-center">
+                          <b-button variant="dark">Login</b-button>
+                      </div>
+                      <div class="mt-2 d-flex justify-content-center">
+                         <p> Don't have an account? <router-link to="/register">Register</router-link></p>
+                      </div>
+                  </b-form>
+              </b-card>
+          </b-col>
       </b-row>
   </b-container>
 </template>
 
 <script>
+
 export default {
-  name:"Login"
+  name:"Login",
+  data() {
+      return {
+          form:{
+              login: '',
+              password: ''
+          }
+      }
+  },
+  methods: {
+      doLogin: function() {
+
+      }
+  },
     
 }
 </script>
