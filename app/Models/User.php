@@ -31,4 +31,8 @@ class User extends Authenticatable
         'password'
     ];
 
+    public function roles(){
+        $this->belongsTo(Role::class,'role_id');
+    }
+
 }
