@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,6 @@ use App\Http\Controllers\LoginController;
 */
 Route::post('/login',[LoginController::class,'login']);
 
-Route::post('/register',  [UserController::class, 'create']);
+Route::post('/register',  [UserController::class, 'store']);
+
+Route::resource('roles', RoleController::class);

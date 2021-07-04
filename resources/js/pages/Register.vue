@@ -8,30 +8,29 @@
                        <b-form-group description="Enter your full name"
                       label="Full Name"
                       label-for="name">
-                          <b-form-input id="name" v-model="form.name"></b-form-input>
+                          <b-form-input id="name" v-model="form.fullname"></b-form-input>
                       </b-form-group>
                       <b-form-group description="Enter your username"
                       label="Username"
                       label-for="login">
-                          <b-form-input id="login" v-model="form.login"></b-form-input>
+                          <b-form-input id="login" v-model="form.username"></b-form-input>
                       </b-form-group>
                       <b-form-group description="Enter your password"
                       label="Password"
                       label-for="password">
                           <b-form-input id="password" v-model="form.password"></b-form-input>
                       </b-form-group>
-                      <b-form-group description="Cofirm your password"
-                      label="Repeat Password"
-                      label-for="confirm">
-                          <b-form-input id="confirm" v-model="form.confirm"></b-form-input>
-                      </b-form-group>
                       <b-form-group description="Select your role"
                       label="Role"
-                      label-for="role">
-                         <b-form-select :options="roles"></b-form-select>
+                      label-for="role_id">
+                         <b-form-select id="role_id" v-model="form.role_id">
+                             <b-form-select-option v-for="role in roles" v-bind:key="role.id" :value="role.id">
+                                 {{role.name}}
+                             </b-form-select-option>
+                         </b-form-select>
                       </b-form-group>
                       <div class="mt-2 d-flex justify-content-center">
-                          <b-button variant="dark">Create account</b-button>
+                          <b-button variant="dark" v-on:click="createAccount()">Create account</b-button>
                       </div>
                
                   </b-form>
@@ -46,22 +45,29 @@ export default {
   name:"Register",
   data() {
       return {
+          apiurl: process.env.MIX_API_URL,
           form:{
-              name:'',
-              login:'',
+              fullname:'',
+              username:'',
               password:'',
-              confirm:'',
-              role: ''
+              role_id: ''
           },
-          roles:{}
+          roles:[]
       }
   },
   methods: {
       createAccount: function () {
-
+          var vm = this;
+          var form = vm.form;
+          vm.$http.post(vm.apiurl+'/register',form).then(function(response){
+              return response.data;
+          })
       },
       getRole: function(){
-          console.log( 'search for role')
+          var vm =this;
+          vm.$http.get(vm.apiurl+'/roles').then(function(response){
+            vm.roles = response.data;
+          })
       }
   },
   mounted() {

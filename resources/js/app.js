@@ -16,7 +16,15 @@ import VueAxios from 'vue-axios';
 
 Vue.use (VueAxios,axios);
 
+//import Vue Cookies
+
+import VueCookies from 'vue-cookies';
+
+Vue.use(VueCookies);
+
 import App from '../js/App';
+
+
 
 
 //import routes
@@ -25,5 +33,5 @@ import router from '../js/router/index';
 const app = new Vue({
     el: '#app',
     components: { App },
-    router,
+    router
 });

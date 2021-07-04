@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -35,6 +37,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'password' => Hash::make($request->password)
+        ]);
         return User::create($request->all());
     }
 

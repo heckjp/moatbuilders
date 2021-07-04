@@ -7,8 +7,8 @@
                   <b-form>
                       <b-form-group description="Enter your username"
                       label="Username"
-                      label-for="login">
-                          <b-form-input id="login" v-model="form.login"></b-form-input>
+                      label-for="username">
+                          <b-form-input id="username" v-model="form.username"></b-form-input>
                       </b-form-group>
                       <b-form-group description="Enter your password"
                       label="Password"
@@ -16,7 +16,7 @@
                           <b-form-input id="password" v-model="form.password"></b-form-input>
                       </b-form-group>
                       <div class="mt-2 d-flex justify-content-center">
-                          <b-button variant="dark">Login</b-button>
+                          <b-button variant="dark" v-on:click="doLogin()">Login</b-button>
                       </div>
                       <div class="mt-2 d-flex justify-content-center">
                          <p> Don't have an account? <router-link to="/register">Register</router-link></p>
@@ -34,15 +34,27 @@ export default {
   name:"Login",
   data() {
       return {
+          apiurl: process.env.MIX_API_URL,
           form:{
-              login: '',
+              username: '',
               password: ''
           }
       }
   },
   methods: {
       doLogin: function() {
+          var vm = this;
+          vm.$http.post(vm.apiurl+'/login', vm.form).then(function(response){
+              console.log(response.data);
+              if(response.status==200){
+                console.log(response.data)
+                vm.$cookies.set('logged',true,'30min');
+                vm.$router.push({name: 'Home'});
+              }
 
+          }).catch(function(err){
+              alert(err.response.data.msg);
+          })
       }
   },
     

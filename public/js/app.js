@@ -1925,14 +1925,30 @@ __webpack_require__.r(__webpack_exports__);
   name: "Login",
   data: function data() {
     return {
+      apiurl: "http://localhost:8000/api",
       form: {
-        login: '',
+        username: '',
         password: ''
       }
     };
   },
   methods: {
-    doLogin: function doLogin() {}
+    doLogin: function doLogin() {
+      var vm = this;
+      vm.$http.post(vm.apiurl + '/login', vm.form).then(function (response) {
+        console.log(response.data);
+
+        if (response.status == 200) {
+          console.log(response.data);
+          vm.$cookies.set('logged', true, '30min');
+          vm.$router.push({
+            name: 'Home'
+          });
+        }
+      })["catch"](function (err) {
+        alert(err.response.data.msg);
+      });
+    }
   }
 });
 
@@ -1991,25 +2007,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
   data: function data() {
     return {
+      apiurl: "http://localhost:8000/api",
       form: {
-        name: '',
-        login: '',
+        fullname: '',
+        username: '',
         password: '',
-        confirm: '',
-        role: ''
+        role_id: ''
       },
-      roles: {}
+      roles: []
     };
   },
   methods: {
-    createAccount: function createAccount() {},
+    createAccount: function createAccount() {
+      var vm = this;
+      var form = vm.form;
+      vm.$http.post(vm.apiurl + '/register', form).then(function (response) {
+        return response.data;
+      });
+    },
     getRole: function getRole() {
-      console.log('search for role');
+      var vm = this;
+      vm.$http.get(vm.apiurl + '/roles').then(function (response) {
+        vm.roles = response.data;
+      });
     }
   },
   mounted: function mounted() {
@@ -2036,8 +2060,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.es5.js");
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _js_App__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../js/App */ "./resources/js/App.vue");
-/* harmony import */ var _js_router_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/router/index */ "./resources/js/router/index.js");
+/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-cookies */ "./node_modules/vue-cookies/vue-cookies.js");
+/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_cookies__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _js_App__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../js/App */ "./resources/js/App.vue");
+/* harmony import */ var _js_router_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../js/router/index */ "./resources/js/router/index.js");
 
  // Import Bootstrap an BootstrapVue CSS files (order is important)
 
@@ -2050,16 +2076,19 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use(bootstrap_vue__WEBPACK_IMPORTED_MOD
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use((vue_axios__WEBPACK_IMPORTED_MODULE_6___default()), (axios__WEBPACK_IMPORTED_MODULE_5___default()));
+vue__WEBPACK_IMPORTED_MODULE_2__.default.use((vue_axios__WEBPACK_IMPORTED_MODULE_6___default()), (axios__WEBPACK_IMPORTED_MODULE_5___default())); //import Vue Cookies
+
+
+vue__WEBPACK_IMPORTED_MODULE_2__.default.use((vue_cookies__WEBPACK_IMPORTED_MODULE_7___default()));
  //import routes
 
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_2__.default({
   el: '#app',
   components: {
-    App: _js_App__WEBPACK_IMPORTED_MODULE_7__.default
+    App: _js_App__WEBPACK_IMPORTED_MODULE_8__.default
   },
-  router: _js_router_index__WEBPACK_IMPORTED_MODULE_8__.default
+  router: _js_router_index__WEBPACK_IMPORTED_MODULE_9__.default
 });
 
 /***/ }),
@@ -48874,18 +48903,18 @@ var render = function() {
                           attrs: {
                             description: "Enter your username",
                             label: "Username",
-                            "label-for": "login"
+                            "label-for": "username"
                           }
                         },
                         [
                           _c("b-form-input", {
-                            attrs: { id: "login" },
+                            attrs: { id: "username" },
                             model: {
-                              value: _vm.form.login,
+                              value: _vm.form.username,
                               callback: function($$v) {
-                                _vm.$set(_vm.form, "login", $$v)
+                                _vm.$set(_vm.form, "username", $$v)
                               },
-                              expression: "form.login"
+                              expression: "form.username"
                             }
                           })
                         ],
@@ -48920,9 +48949,18 @@ var render = function() {
                         "div",
                         { staticClass: "mt-2 d-flex justify-content-center" },
                         [
-                          _c("b-button", { attrs: { variant: "dark" } }, [
-                            _vm._v("Login")
-                          ])
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "dark" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.doLogin()
+                                }
+                              }
+                            },
+                            [_vm._v("Login")]
+                          )
                         ],
                         1
                       ),
@@ -49017,11 +49055,11 @@ var render = function() {
                           _c("b-form-input", {
                             attrs: { id: "name" },
                             model: {
-                              value: _vm.form.name,
+                              value: _vm.form.fullname,
                               callback: function($$v) {
-                                _vm.$set(_vm.form, "name", $$v)
+                                _vm.$set(_vm.form, "fullname", $$v)
                               },
-                              expression: "form.name"
+                              expression: "form.fullname"
                             }
                           })
                         ],
@@ -49041,11 +49079,11 @@ var render = function() {
                           _c("b-form-input", {
                             attrs: { id: "login" },
                             model: {
-                              value: _vm.form.login,
+                              value: _vm.form.username,
                               callback: function($$v) {
-                                _vm.$set(_vm.form, "login", $$v)
+                                _vm.$set(_vm.form, "username", $$v)
                               },
-                              expression: "form.login"
+                              expression: "form.username"
                             }
                           })
                         ],
@@ -49080,37 +49118,39 @@ var render = function() {
                         "b-form-group",
                         {
                           attrs: {
-                            description: "Cofirm your password",
-                            label: "Repeat Password",
-                            "label-for": "confirm"
-                          }
-                        },
-                        [
-                          _c("b-form-input", {
-                            attrs: { id: "confirm" },
-                            model: {
-                              value: _vm.form.confirm,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "confirm", $$v)
-                              },
-                              expression: "form.confirm"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-form-group",
-                        {
-                          attrs: {
                             description: "Select your role",
                             label: "Role",
-                            "label-for": "role"
+                            "label-for": "role_id"
                           }
                         },
                         [
-                          _c("b-form-select", { attrs: { options: _vm.roles } })
+                          _c(
+                            "b-form-select",
+                            {
+                              attrs: { id: "role_id" },
+                              model: {
+                                value: _vm.form.role_id,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.form, "role_id", $$v)
+                                },
+                                expression: "form.role_id"
+                              }
+                            },
+                            _vm._l(_vm.roles, function(role) {
+                              return _c(
+                                "b-form-select-option",
+                                { key: role.id, attrs: { value: role.id } },
+                                [
+                                  _vm._v(
+                                    "\n                               " +
+                                      _vm._s(role.name) +
+                                      "\n                           "
+                                  )
+                                ]
+                              )
+                            }),
+                            1
+                          )
                         ],
                         1
                       ),
@@ -49119,9 +49159,18 @@ var render = function() {
                         "div",
                         { staticClass: "mt-2 d-flex justify-content-center" },
                         [
-                          _c("b-button", { attrs: { variant: "dark" } }, [
-                            _vm._v("Create account")
-                          ])
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "dark" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.createAccount()
+                                }
+                              }
+                            },
+                            [_vm._v("Create account")]
+                          )
                         ],
                         1
                       )

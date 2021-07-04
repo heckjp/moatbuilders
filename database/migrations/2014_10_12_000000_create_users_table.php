@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->foreignId('role_id');
             $table->string('password');
+            $table->timestamps();
         });
     }
 

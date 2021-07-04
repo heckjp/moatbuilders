@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
-use app\Models\User;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -20,7 +20,10 @@ class LoginController extends Controller
                 $password = Hash::check($request->password, $data->password);
                 if($password){
                     return response()->json($data);
-                }
+                } else {
+                    return response()->json([
+                      'msg' => "Sorry, we couldn't find an account with this username. Please check you're using the right username and try again"], 401);
+                  }
             } else {
                 return response()->json([
                   'msg' => "Sorry, we couldn't find an account with this username. Please check you're using the right username and try again"], 401);
