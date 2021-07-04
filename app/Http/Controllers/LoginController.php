@@ -23,11 +23,13 @@ class LoginController extends Controller
                 }
             } else {
                 return response()->json([
-                  'msg' => 'User credentials invalid'  ], 401);
+                  'msg' => "Sorry, we couldn't find an account with this username. Please check you're using the right username and try again"], 401);
               }
         } catch(ModelNotFoundException $e) {
             return response()->json([
-                'msg' => 'User credentials invalid'  ], 401);
+                'msg' => "Sorry, we couldn't find an account with this username. Please check you're using the right username and try again"  ], 401);
         }
     }
+
+
 }
