@@ -30,7 +30,6 @@ class ArtistsTableSeeder extends Seeder
             ['name'=>'One Direction'],
             ['name'=>'Papa Roach'],
             ['name'=>'Rammstein'],
-            ['name'=>'Beyoncé'],
             ['name'=>'Rihanna'],
             ['name'=>'Evanescence'],
             ['name'=>'Shakira'],
