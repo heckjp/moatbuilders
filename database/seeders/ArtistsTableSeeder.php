@@ -43,7 +43,6 @@ class ArtistsTableSeeder extends Seeder
             ['name'=>'Shania Twain'],
             ['name'=>'Json Mraz'],
             ['name'=>'The Beatles'],
-            ['name'=>'Adele'],
             ['name'=>'50 cent'],
         ];
 
