@@ -46,7 +46,8 @@ class ArtistController extends Controller
      */
     public function show($id)
     {
-        //
+        $artist = new Artist();
+        return $artist->where('id', '=',$id)->with('album');
     }
 
     /**
