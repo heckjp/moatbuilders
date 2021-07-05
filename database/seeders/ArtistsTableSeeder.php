@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Artist;
 
 class ArtistsTableSeeder extends Seeder
 {
@@ -13,8 +14,7 @@ class ArtistsTableSeeder extends Seeder
      */
     public function run()
     {
-        Artist::truncate();
-
+       
         $artists = [ 
             ['name'=>'Adele'],
             ['name'=>'Beyoncé'],

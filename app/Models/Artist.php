@@ -13,6 +13,6 @@ class Artist extends Model
     protected $fillable = ['name'];
 
     public function album(){
-        $this->hasMany(Album::class);
+        return $this->hasMany(Album::class);
     }
 }

@@ -27,6 +27,7 @@ Route::resource('roles', RoleController::class);
 Route::middleware('valid')->group(function () {
     Route::resource('albums',AlbumController::class);
     Route::get('/task',[ArtistController::class,'index']);
+    Route::get('/task/{id}',[ArtistController::class,'show']);
 
 });
 

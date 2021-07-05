@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\Artist;
+use App\Models\Artist;
 
 class ArtistController extends Controller
 {
@@ -47,7 +47,7 @@ class ArtistController extends Controller
     public function show($id)
     {
         $artist = new Artist();
-        return $artist->where('id', '=',$id)->with('album');
+        return $artist->with('album')->find($id);
     }
 
     /**

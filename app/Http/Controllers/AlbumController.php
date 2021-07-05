@@ -13,7 +13,7 @@ class AlbumController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         return Album::all();
     
     }

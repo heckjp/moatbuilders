@@ -22,6 +22,17 @@ import VueCookies from 'vue-cookies';
 
 Vue.use(VueCookies);
 
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
+ 
+// name is optional
+Vue.use(VueLodash, {lodash: lodash })
+
+import VueSweetAlert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetAlert2);
+
 import App from '../js/App';
 
 

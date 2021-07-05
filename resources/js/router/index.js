@@ -7,6 +7,7 @@ import cookie from 'vue-cookies';
 
 import Albums from '../pages/Albums.vue'
 import Artists from '../pages/Artists.vue'
+import ArtistDetails from '../pages/ArtistDetails.vue'
 
 
 Vue.use(VueRouter);
@@ -25,8 +26,14 @@ const routes=[
               path:'artists',
               name:'artists',
               component:Artists
-            }
-          ]
+            },
+            {
+              path:'artists/:id',
+              name: 'artistDetail',
+              component: ArtistDetails
+
+            },
+          ],
         },
         {
             path: '/login',
