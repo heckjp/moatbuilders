@@ -13,7 +13,7 @@
                       <b-form-group description="Enter your password"
                       label="Password"
                       label-for="password">
-                          <b-form-input id="password" v-model="form.password"></b-form-input>
+                          <b-form-input type="password" id="password" v-model="form.password"></b-form-input>
                       </b-form-group>
                       <div class="mt-2 d-flex justify-content-center">
                           <b-button variant="dark" v-on:click="doLogin()">Login</b-button>
@@ -47,8 +47,8 @@ export default {
           vm.$http.post(vm.apiurl+'/login', vm.form).then(function(response){
               console.log(response.data);
               if(response.status==200){
-                console.log(response.data)
                 vm.$cookies.set('logged',true,'30min');
+                vm.$cookies.set('user',response.data,'30min');
                 vm.$router.push({name: 'Home'});
               }
 

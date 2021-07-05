@@ -18,7 +18,7 @@
                       <b-form-group description="Enter your password"
                       label="Password"
                       label-for="password">
-                          <b-form-input id="password" v-model="form.password"></b-form-input>
+                          <b-form-input type="password" id="password" v-model="form.password"></b-form-input>
                       </b-form-group>
                       <b-form-group description="Select your role"
                       label="Role"

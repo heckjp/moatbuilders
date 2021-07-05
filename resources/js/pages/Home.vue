@@ -1,14 +1,27 @@
 <template>
   <b-container>
+    <Topbar></Topbar>
       <b-row>
-          <b-col>Aqui</b-col>
+          <b-col>
+            <router-view></router-view>
+          </b-col>
       </b-row>
   </b-container>
 </template>
 
 <script>
+import Topbar from '../components/Topbar.vue'
 export default {
-  name:"Home"
+  name:"Home",
+  components:{
+    Topbar
+  },
+  data() {
+    return {
+  
+    }
+  },
+  
     
 }
 </script>

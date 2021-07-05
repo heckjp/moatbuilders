@@ -5,13 +5,28 @@ import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import cookie from 'vue-cookies';
 
+import Albums from '../pages/Albums.vue'
+import Artists from '../pages/Artists.vue'
+
 
 Vue.use(VueRouter);
 const routes=[
         {
             path: '/',
             name: 'Home',
-            component: Home
+            component: Home,
+            children: [
+              {
+              path:'albums',
+              name: 'albums',
+              component:Albums
+            },
+            {
+              path:'artists',
+              name:'artists',
+              component:Artists
+            }
+          ]
         },
         {
             path: '/login',
