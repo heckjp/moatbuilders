@@ -17,7 +17,7 @@ class AppAuthentication
     public function handle(Request $request, Closure $next)
     {   
         if ($request->header('Authorization') !== env('MIX_API_KEY')) {
-            return response()->json(['You shall not pass',403]);
+            return response()->json('You shall not pass',403);
         }
         return $next($request);
     }

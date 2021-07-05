@@ -20,15 +20,15 @@ export default {
         }
     },
     methods: {
-        // getArtists:function() {
-        //     var vm = this;
-        //     vm.$http.get(vm.apiurl+'/task').then(function(response){
-        //         vm.artists = response.data
-        //     })
-        // }
+        getArtists:function() {
+            var vm = this;
+            vm.$http.get(vm.apiurl+'/task').then(function(response){
+                vm.artists = response.data
+            })
+        }
     },
     mounted() {
-       // this.getArtists();
+       this.getArtists();
     },
 }
 </script>

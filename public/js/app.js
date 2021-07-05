@@ -1923,7 +1923,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Albums'
+  name: 'Albums',
+  data: function data() {
+    return {
+      apiurl: "http://localhost:8000/api",
+      albums: []
+    };
+  },
+  methods: {
+    getAlbums: function getAlbums() {
+      var vm = this;
+      vm.$http.get(vm.apiurl + '/albums', {
+        headers: {
+          Authorization: "Basic ZGV2ZWxvcGVyOlpHVjJaV3h2Y0dWeQ=="
+        }
+      }).then(function (response) {
+        vm.albums = response.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getAlbums();
+  }
 });
 
 /***/ }),
@@ -1959,14 +1980,16 @@ __webpack_require__.r(__webpack_exports__);
       artists: []
     };
   },
-  methods: {// getArtists:function() {
-    //     var vm = this;
-    //     vm.$http.get(vm.apiurl+'/task').then(function(response){
-    //         vm.artists = response.data
-    //     })
-    // }
+  methods: {
+    getArtists: function getArtists() {
+      var vm = this;
+      vm.$http.get(vm.apiurl + '/task').then(function (response) {
+        vm.artists = response.data;
+      });
+    }
   },
-  mounted: function mounted() {// this.getArtists();
+  mounted: function mounted() {
+    this.getArtists();
   }
 });
 

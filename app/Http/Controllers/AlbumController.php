@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\Album;
+use App\Models\Album;
 
 class AlbumController extends Controller
 {
