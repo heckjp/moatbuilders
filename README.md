@@ -10,13 +10,21 @@ Vue
 
 Mysql
 
+## NPM Packages used
+    * boostrap-vue
+    * vue-axios
+    * vue-cookies
+    * vue-sweetalert2
+    * vue-router
+    * vue-lodash
+
 ## Instructions
 
 Navigate to the project directory
 
-Run composer install
+Run ```composer install``` 
 
-Run npm install 
+Run ```npm install``` 
 
 Copy .env.example to .env and change the information of database connection and application url if necessary
 
