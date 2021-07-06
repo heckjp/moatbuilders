@@ -5,7 +5,7 @@
             <b-col>
                 <b-table stiped :fields="fields" :items="artists"  empty-text="No record found" empty-filtered-text="No record found" head-variant="dark" show-empty>
                      <template v-slot:cell(action)="row">
-                        <b-button variant="dark" class="m-2" v-b-modal="'modal-edit'" v-on:click="details(row.item.id)" ><b-icon-pencil-square /> See details</b-button>
+                        <b-button variant="dark" class="m-2" v-b-modal="'modal-edit'" v-on:click="details(row.item.id)" ><b-icon-eye /> See details</b-button>
                     </template>
                     <template #empty="scope">
                         <p>{{ scope.emptyText }}</p>
