@@ -36,7 +36,7 @@ Run ```php artisan db:seed``` for populate tables
 
 Run ```php artisan serve``` for start the api application
 
-Run ```npm run watch```` or ```npm run dev``` for start the frontend
+Run ```npm run watch``` or ```npm run dev``` for start the frontend
 
 
 
